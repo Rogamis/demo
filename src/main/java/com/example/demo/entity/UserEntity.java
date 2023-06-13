@@ -2,7 +2,9 @@ package com.example.demo.entity;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class UserEntity {
@@ -11,9 +13,13 @@ public class UserEntity {
     private Long id;
     private String username;
     private String password;
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private List<TodoEntity> todos;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_projects",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id"))
+    private Set<ProjectEntity> projects = new HashSet<>();
 
     public UserEntity() {
     }

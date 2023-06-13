@@ -9,10 +9,21 @@ public class TodoEntity {
     private Long id;
     private String title;
     private Boolean completed;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    public ProjectEntity getProject() {
+        return project;
+    }
+
+    public void setProject(ProjectEntity project) {
+        this.project = project;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private ProjectEntity project;
 
     public TodoEntity() {
     }
